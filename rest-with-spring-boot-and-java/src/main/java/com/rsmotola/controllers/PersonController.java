@@ -18,7 +18,7 @@ import com.rsmotola.data.vo.v1.PersonVO;
 import com.rsmotola.services.PersonServices;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 public class PersonController {
 	
 	@Autowired
