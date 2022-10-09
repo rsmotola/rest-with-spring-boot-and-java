@@ -2,12 +2,13 @@ package com.rsmotola.integrationtests.vo;
 
 import java.io.Serializable;
 
-import org.springframework.hateoas.RepresentationModel;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
-public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
+@XmlRootElement
+public class PersonVO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
 	private String firstName;
 	private String lastName;
@@ -59,7 +60,7 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
@@ -72,7 +73,7 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -104,6 +105,4 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 			return false;
 		return true;
 	}
-
-
 }
