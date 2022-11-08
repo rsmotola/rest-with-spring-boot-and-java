@@ -1,11 +1,12 @@
 package com.rsmotola.services;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.stereotype.Service;
 
 import com.rsmotola.controllers.PersonController;
@@ -15,6 +16,8 @@ import com.rsmotola.exceptions.ResourceNotFoundException;
 import com.rsmotola.mapper.DozerMapper;
 import com.rsmotola.model.Person;
 import com.rsmotola.repositories.PersonRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class PersonServices {
@@ -75,6 +78,22 @@ public class PersonServices {
 		var vo =  DozerMapper.parseObject(repository.save(entity), PersonVO.class);
 		vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
 		return vo;
+	}
+	
+	@Transactional
+	public PersonVO disablePerson(Long id) {
+
+		logger.info("Disabling one person!");
+		
+		repository.disablePerson(id);
+		
+		var entity = repository.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+		
+		var vo = DozerMapper.parseObject(entity, PersonVO.class);
+		vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+		return vo;
+
 	}
 
 	public void delete(Long id) {

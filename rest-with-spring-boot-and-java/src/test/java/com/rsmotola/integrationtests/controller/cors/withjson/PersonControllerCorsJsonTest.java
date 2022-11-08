@@ -1,9 +1,9 @@
 package com.rsmotola.integrationtests.controller.cors.withjson;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -194,6 +194,6 @@ public class PersonControllerCorsJsonTest extends AbstractIntegrationTest {
 		person.setLastName("Stallman");
 		person.setAddress("New York City, New York, US");
 		person.setGender("Male");
+		person.setEnabled(true);
 	}
-
 }
